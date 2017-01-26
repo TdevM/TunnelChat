@@ -3,7 +3,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const http = require('http');
 const publicPath = path.join(__dirname, '../public');
-
+var {generateMessage} = require('./utils/message');
 
 let app = express();
 let port = process.env.port || 3000;
@@ -14,49 +14,15 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('New User Connected');
 
-    // socket.emit('newEmail',{
-    //     from:'tga@live.in',
-    //     text:'Hello, This was sent from the server',
-    //     createdAt:123
-    // });
+    socket.emit('newMessageFromServer',generateMessage('Admin','Welcome to the Chat App'));
 
-    // socket.on('createEmail',(arrivedEmail)=>{
-    //     console.log('An Email was Arrived',arrivedEmail);
-    // });
+    socket.broadcast.emit('newMessageFromServer',generateMessage('Admin','New User Joined'));
 
-    // socket.emit('newMessageFromServer',{
-    //    from:'Tridev',
-    //    text:'Hi! Welcome to my Chat App',
-    //    timeStamp: new Date().getTime()
-    // });
-
-
-    socket.emit('newMessageFromServer',{
-        from:'Admin New',
-        text:'Welcome to Chat App',
-        timeStamp: new Date().getTime()
-    });
-
-    socket.broadcast.emit('newMessageFromServer',{
-        from:'Admin',
-        text:'New User Joined',
-        timeStamp: new Date().getTime()
-    });
-
-    socket.on('newMessageFromClient',(arrivedMessageFromClient)=>{
+    socket.on('newMessageFromClient',(arrivedMessageFromClient,callback)=>{
         console.log('New Message from client',arrivedMessageFromClient);
 
-        io.emit('newMessageFromServer',{
-            from:arrivedMessageFromClient.from,           // Emits an event to every single connection
-            text:arrivedMessageFromClient.text,
-            timeStamp: new Date().getTime()
-        });
-
-        // // socket.broadcast.emit('newMessageFromServer',{
-        // //         from:arrivedMessageFromClient.from,
-        // //         text:arrivedMessageFromClient.text,
-        // //         timeStamp: new Date().getTime()
-        // });
+        io.emit('newMessageFromServer',generateMessage(arrivedMessageFromClient.from,arrivedMessageFromClient.text));
+        callback('This is from the server')
     });
 
     socket.on('disconnect',()=>{
