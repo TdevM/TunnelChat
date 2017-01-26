@@ -13,11 +13,11 @@ socket.on('connect',function(){
     //     createdAt:123
     // });
 
-    socket.emit('newMessageFromClient',{
-       from:'Mishra',
-       text:'Hello, Your Chat app is just Awesome!',
-        timeStamp: new Date().getTime()
-    });
+    // socket.emit('newMessageFromClient',{
+    //    from:'Mishra',
+    //    text:'Hello, Your Chat app is just Awesome!',
+    //     timeStamp: new Date().getTime()
+    // });
 });
 
 socket.on('disconnect',function(){
@@ -25,8 +25,9 @@ socket.on('disconnect',function(){
 });
 
 socket.on('newMessageFromServer',function (message) {
-    console.log('New Message Arrived',message);
+    console.log('New Message',message);
 });
+
 //
 // socket.on('newEmail',function (email) {
 //     console.log('New Email Arrived',email);

@@ -20,23 +20,43 @@ io.on('connection', (socket) => {
     //     createdAt:123
     // });
 
+    // socket.on('createEmail',(arrivedEmail)=>{
+    //     console.log('An Email was Arrived',arrivedEmail);
+    // });
+
     // socket.emit('newMessageFromServer',{
     //    from:'Tridev',
     //    text:'Hi! Welcome to my Chat App',
     //    timeStamp: new Date().getTime()
     // });
 
-    // socket.on('createEmail',(arrivedEmail)=>{
-    //     console.log('An Email was Arrived',arrivedEmail);
-    // });
+
+    socket.emit('newMessageFromServer',{
+        from:'Admin New',
+        text:'Welcome to Chat App',
+        timeStamp: new Date().getTime()
+    });
+
+    socket.broadcast.emit('newMessageFromServer',{
+        from:'Admin',
+        text:'New User Joined',
+        timeStamp: new Date().getTime()
+    });
 
     socket.on('newMessageFromClient',(arrivedMessageFromClient)=>{
+        console.log('New Message from client',arrivedMessageFromClient);
+
         io.emit('newMessageFromServer',{
-            from:arrivedMessageFromClient.from,
+            from:arrivedMessageFromClient.from,           // Emits an event to every single connection
             text:arrivedMessageFromClient.text,
             timeStamp: new Date().getTime()
         });
-        console.log('New Message from client',arrivedMessageFromClient);
+
+        // // socket.broadcast.emit('newMessageFromServer',{
+        // //         from:arrivedMessageFromClient.from,
+        // //         text:arrivedMessageFromClient.text,
+        // //         timeStamp: new Date().getTime()
+        // });
     });
 
     socket.on('disconnect',()=>{
