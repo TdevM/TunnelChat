@@ -2,21 +2,40 @@
 <html>
   <head>
     <meta charset="utf-8">
+      <link rel="stylesheet" href="css/styles.css">
     <title>Tunnel Messenger Web</title>
   </head>
-  <body>
-   <p>Welcome to Tunnel Messenger</p>
+  <body class="chat">
 
 
-   <ol id="messages"></ol>
+  <div class="chat__sidebar">
+      <h3>People</h3>
+      <div id="users"></div>
+
+  </div>
 
 
-    <form id="message-form">
-        <input name="message" type="text" placeholder="Enter Message"/>
-        <button>Send</button>
+  <div class="chat__main">
+      <ol id="messages" class="chat__messages"></ol>
 
-    </form>
-   <button id="send-location">Send Location</button>
+
+      <div class="chat__footer">
+
+          <form id="message-form">
+              <input name="message" type="text" placeholder="Enter Message" autofocus autocomplete="off"/>
+              <button>Send</button>
+
+          </form>
+          <button id="send-location">Send Location</button>
+      </div>
+
+  </div>
+  <!-- <p>Welcome to Tunnel Messenger</p> -->
+
+
+
+
+
 
 
     <script src="/socket.io/socket.io.js"></script>
