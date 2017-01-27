@@ -32,9 +32,43 @@
   </div>
   <!-- <p>Welcome to Tunnel Messenger</p> -->
 
-    <script src="/socket.io/socket.io.js"></script>
+
+
+  <!-- Template for One Message Thread -->
+  <script id="message-template" type="template">
+ <li class="message">
+     <div class="message__title">
+         <h4>{{from}}</h4>
+         <span>{{timeStamp}}</span>
+     </div>
+     <div class="message__body">
+         <p>{{text}}</p>
+     </div>
+ </li>
+  </script>
+
+
+  <!-- Template for One Location Message Thread -->
+  <script id="location-message-template" type="template">
+ <li class="message">
+     <div class="message__title">
+         <h4>{{from}}</h4>
+         <span>{{timeStamp}}</span>
+     </div>
+     <div class="message__body">
+         <p>
+          <a href="{{url}}" target = "_blank">My Current Location</a>
+        </p>
+     </div>
+ </li>
+  </script>
+
+
+  <script src="/socket.io/socket.io.js"></script>
     <script src = "js/libs/jquery-3.1.1.min.js"> </script>
     <script src = "js/client.js"> </script>
     <script src = "js/libs/moment.js"></script>
+  <script src = "js/libs/mustache.js"></script>
+
   </body>
 </html>
