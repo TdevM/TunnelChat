@@ -3,8 +3,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const http = require('http');
 const publicPath = path.join(__dirname, '../public');
-var {generateMessage} = require('./utils/message');
-
+const {generateMessage,sendLocationMessage} = require('./utils/message');
 let app = express();
 let port = process.env.port || 3000;
 let server = http.createServer(app);
@@ -14,7 +13,7 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('New User Connected');
 
-    socket.emit('newMessageFromServer',generateMessage('Admin','Welcome to the Chat App'));
+   socket.emit('newMessageFromServer',generateMessage('Admin','Welcome to the Chat App'));
 
     socket.broadcast.emit('newMessageFromServer',generateMessage('Admin','New User Joined'));
 
@@ -23,6 +22,12 @@ io.on('connection', (socket) => {
 
         io.emit('newMessageFromServer',generateMessage(arrivedMessageFromClient.from,arrivedMessageFromClient.text));
         callback('This is from the server')
+    });
+
+
+    socket.on('sendLocationFromClient',(coords)=>{
+        "use strict";
+         io.emit('newLocationMessageFromServer',sendLocationMessage('Admin',coords.latitude,coords.longitude));
     });
 
     socket.on('disconnect',()=>{

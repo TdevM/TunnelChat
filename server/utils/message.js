@@ -7,7 +7,15 @@ var generateMessage = function (from,text) {
         from,
         text,
         timeStamp: new Date().getTime()
-    }
+    };
 };
 
-module.exports = {generateMessage};
+var sendLocationMessage = function (from,latitude,longitude) {
+    return{
+        from,
+        url:`https://www.google.com/maps?q=${latitude},${longitude}`,
+        timeStamp: new Date().getTime()
+    };
+};
+
+module.exports = {generateMessage,sendLocationMessage};
