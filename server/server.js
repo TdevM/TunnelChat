@@ -2,22 +2,28 @@ const path = require('path');
 const express = require('express');
 const socketIO = require('socket.io');
 const http = require('http');
-const publicPath = path.join(__dirname, '../public');
+
+
 const {generateMessage,sendLocationMessage} = require('./utils/message');
 const {isRealString} = require('./utils/validation');
 const {Users} = require('./utils/users');
-var app = express();
+
+const publicPath = path.join(__dirname, '../public');
 const port = process.env.port || 3000;
+var app = express();
+
 var server = http.createServer(app);
 var io = socketIO(server);
-app.use(express.static(publicPath));
+
 var users = new Users();
 
+
+app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log('New User Connected');
 
     socket.on('joinFromClient',(params,callback)=>{
-        "use strict";
+
 
         if(!isRealString(params.name) || !isRealString(params.name)){
            return callback('Name and room name are require');
@@ -50,7 +56,6 @@ io.on('connection', (socket) => {
 
 
     socket.on('sendLocationFromClient',(coords)=>{
-        "use strict";
         var user = users.getUser(socket.id);
         if(user){
             io.to(user.room).emit('newLocationMessageFromServer',sendLocationMessage(user.name,coords.latitude,coords.longitude));
