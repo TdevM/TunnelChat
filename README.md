@@ -8,3 +8,9 @@ npm install
 node server/server.js
 
 See it live at port 3000!
+
+#TODOs
+1) Add Logout Button.
+2) Clear Messages Button.
+3) Store Messages Locally (localStorage).
+
