@@ -1,74 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-      <link rel="stylesheet" href="css/styles.css">
-    <title>Tunnel Messenger Web</title>
-  </head>
-  <body class="chat">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/styles.css">
 
+    <meta name="viewport" content="width=device-width, initial-scale  =1, user-scalable = no">
+    <title>Tunnel Messenger | Home</title>
+</head>
+<body class="centered-form">
+<div class="centered-form__form">
 
-  <div class="chat__sidebar">
-      <h3>People</h3>
-      <div id="users"></div>
+    <form action="client.html">
+    <div class="form-field">
+        <h3>Join a Chat</h3>
+    </div>
+    <div class="form-field">
+        <label>Display Name</label>
+        <input type="text" name="name" autofocus>
+    </div>
 
-  </div>
+    <div class="form-field">
+        <label>Room Name</label>
+        <input type="text" name="room" autofocus>
+    </div>
 
+    <div class="form-field">
+        <button>Join</button>
+    </div>
+    </form>
 
-  <div class="chat__main">
-      <ol id="messages" class="chat__messages"></ol>
+</div>
 
-
-      <div class="chat__footer">
-
-          <form id="message-form">
-              <input name="message" type="text" placeholder="Enter Message" autofocus autocomplete="off"/>
-              <button>Send</button>
-
-          </form>
-          <button id="send-location">Send Location</button>
-      </div>
-
-  </div>
-  <!-- <p>Welcome to Tunnel Messenger</p> -->
-
-
-
-  <!-- Template for One Message Thread -->
-  <script id="message-template" type="template">
- <li class="message">
-     <div class="message__title">
-         <h4>{{from}}</h4>
-         <span>{{timeStamp}}</span>
-     </div>
-     <div class="message__body">
-         <p>{{text}}</p>
-     </div>
- </li>
-  </script>
-
-
-  <!-- Template for One Location Message Thread -->
-  <script id="location-message-template" type="template">
- <li class="message">
-     <div class="message__title">
-         <h4>{{from}}</h4>
-         <span>{{timeStamp}}</span>
-     </div>
-     <div class="message__body">
-         <p>
-          <a href="{{url}}" target = "_blank">My Current Location</a>
-        </p>
-     </div>
- </li>
-  </script>
-
-
-  <script src="/socket.io/socket.io.js"></script>
-    <script src = "js/libs/jquery-3.1.1.min.js"> </script>
-    <script src = "js/client.js"> </script>
-    <script src = "js/libs/moment.js"></script>
-  <script src = "js/libs/mustache.js"></script>
-
-  </body>
+</body>
 </html>
